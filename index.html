@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!--android webapp manifest-->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#00984A">
+
+  <!-- Add to home screen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Localiza Share">
+  <link rel="apple-touch-icon" href="images/icons/icon.png">
+  
+  <!--Tiles for Windows-->
+  <meta name="msapplication-TileImage" content="images/icons/icon.png">
+  <meta name="msapplication-TileColor" content="#00984A">
+
+
+  <title>Localiza Share</title>
+
+  <!--stylesshet-->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/spinner.css">
+</head>
+
+<body>
+	<div id="main">
+		<img src='images/localiza.png' id='logo'>
+		<div id='map'>
+		</div>
+		<div id='locate' class='button'>
+			<span>LOCALIZAR CARRO</span>
+		</div>
+		<div id='open-car' class='button no-contract'>
+			<span>ABRIR CARRO</span>
+		</div>
+		<div id='close-contract' class='button no-contract'>
+			<span>ENCERRAR CONTRATO</span>
+		</div>
+	</div>
+	
+	<!--Spinner -->
+	<div class="loader">
+		<svg viewBox="0 0 32 32" width="32" height="32">
+			<circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+		</svg>
+	</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', documentReady);
+document.querySelector('#locate').addEventListener('click', toggleMap)
+document.querySelector("#map").addEventListener('click', locateCar);
+
+function documentReady() {
+	hideLoader();
+}
+
+function toggleMap() {
+	var locate = document.querySelector('#locate')
+	var locateClasses = locate.className;
+	var mapHeight, locateText, className;
+	
+	var mapShown = /.*map-shown.*/.test(locateClasses);
+	
+	if(mapShown) {
+		mapHeight = 0;
+		locateText = "LOCALIZA CARRO";
+		className = "button";
+	} else {
+		mapHeight = 250 + 'px';
+		locateText = "FECHAR MAPA";
+		className = "button map-shown";	
+	}
+	
+	document.querySelector('#map').style.height = mapHeight;
+	var locateEl = document.querySelector('#locate>span');
+	locateEl.textContent = locateText;
+	document.querySelector('#locate').className = className;
+}
+
+function locateCar() {
+	openContract();
+}
+
+function openContract() {
+	document.querySelectorAll('.no-contract').forEach(function(item, index) {
+		item.className = item.className.replace(" no-contract", "")
+	});
+}
+
+function hideLoader() {
+	document.getElementsByClassName("loader")[0].style.display = "none";
+};
+
+function showLoader() {
+	document.getElementsByClassName("loader")[0].style.display = "block";
+}
+
+</script>
+</html>

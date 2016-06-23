@@ -1,0 +1,42 @@
+html {
+  font-family: Calibri;
+  height: 100%
+}
+
+body {
+  margin:0;
+  height: 100%;
+  width: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background-color: #004A65;
+  font-weight: bold;
+}
+
+#main {
+	display: flex;
+	flex-direction: column;
+	
+	color: #D3DB25;
+}
+
+#main > label, #login-button {
+	margin: 1em 0 0;
+}
+
+#login-button {
+	text-align: center;
+	color: black;
+	background-color: #D3DB25;
+	line-height: 2.5em;
+	border-radius: 4px;
+	
+	cursor: pointer;
+}
+
+#login-button:hover {
+	background-color: #A3A92C;
+}

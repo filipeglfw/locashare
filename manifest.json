@@ -1,0 +1,13 @@
+{
+  "name": "Localiza Share",
+  "short_name": "Localiza Share",
+  "icons": [{
+    "src": "images/icons/icon.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }],
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#00984A",
+  "theme_color": "#00984A"
+}
