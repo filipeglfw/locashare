@@ -1,0 +1,34 @@
+#dialogs{
+	left:0;
+	top:0;
+	position:fixed;
+	
+	height:100%;
+	width:100%;
+	background-color: rgba(50,80,80, 0.7);
+}
+
+#dialogs * {
+	max-width: 100%;
+}
+
+.dialogs-hidden {
+	display: none;
+}
+
+.dialogs-shown {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.dialog {
+	background-color: white;
+	height: 300px;
+	width: 300px;
+	
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+}
