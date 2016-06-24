@@ -24,21 +24,36 @@
   <!--stylesshet-->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/spinner.css">
+  <link rel="stylesheet" href="styles/dialogs.css">
 </head>
 
 <body>
 	<div id="main">
 		<img src='images/localiza.png' id='logo'>
-		<div id='map'>
+		<div id='map-container' class='flex-shown'>
+			<div id='map'>
+			</div>
+			<div id='locate' class='button'>
+				<span>LOCALIZAR CARRO</span>
+			</div>
 		</div>
-		<div id='locate' class='button'>
-			<span>LOCALIZAR CARRO</span>
+		<div id='contract-controls' class='flex-hidden'>
+			<div id='open-car' class='button no-contract'>
+				<span>ABRIR CARRO</span>
+			</div>
+			<div id='close-contract' class='button no-contract'>
+				<span>ENCERRAR CONTRATO</span>
+			</div>
 		</div>
-		<div id='open-car' class='button no-contract'>
-			<span>ABRIR CARRO</span>
-		</div>
-		<div id='close-contract' class='button no-contract'>
-			<span>ENCERRAR CONTRATO</span>
+	</div>
+	
+	<!--dialogs -->
+	<div id='dialogs' class='dialogs-hidden'>
+		<div id='car-picker' class='dialog'>
+			<div>
+				<img src='images/KACR.png'>
+			</div>
+			<div id='rent-button' class='button'><span>ALUGAR</span></div>
 		</div>
 	</div>
 	
@@ -51,26 +66,31 @@
 </body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="scripts/elementWrapper.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', documentReady);
 document.querySelector('#locate').addEventListener('click', toggleMap)
 document.querySelector("#map").addEventListener('click', locateCar);
+document.querySelector("#rent-button").addEventListener("click", rentCar);
+document.querySelector("#close-contract").addEventListener("click", closeContract);
 
 function documentReady() {
 	hideLoader();
 }
 
 function toggleMap() {
+
 	var locate = document.querySelector('#locate')
 	var locateClasses = locate.className;
-	var mapHeight, locateText, className;
+	var mapHeight, mapWidth, locateText, className;
 	
 	var mapShown = /.*map-shown.*/.test(locateClasses);
+	var map = document.querySelector('#map');
 	
 	if(mapShown) {
 		mapHeight = 0;
-		locateText = "LOCALIZA CARRO";
+		locateText = "LOCALIZAR CARRO";
 		className = "button";
 	} else {
 		mapHeight = 250 + 'px';
@@ -78,19 +98,37 @@ function toggleMap() {
 		className = "button map-shown";	
 	}
 	
-	document.querySelector('#map').style.height = mapHeight;
+	map.style.height = mapHeight;
 	var locateEl = document.querySelector('#locate>span');
 	locateEl.textContent = locateText;
 	document.querySelector('#locate').className = className;
 }
 
 function locateCar() {
+	El('#dialogs').replaceClass("dialogs-hidden", "dialogs-shown");
+}
+
+function rentCar() {
+	El('#dialogs').replaceClass("dialogs-shown", "dialogs-hidden");
 	openContract();
 }
 
 function openContract() {
+	var contractControls = document.querySelector('#contract-controls');
+	contractControls.className = contractControls.className.replace('flex-hidden', 'flex-shown');
 	document.querySelectorAll('.no-contract').forEach(function(item, index) {
-		item.className = item.className.replace(" no-contract", "")
+		item.className = item.className.replace("no-contract", "contract")
+	});
+	
+	//var mapContainer = document.querySelector('#map-container');
+	//mapContainer.className = mapContainer.className.replace('flex-shown', 'flex-hidden');
+}
+
+function closeContract() {
+	var contractControls = document.querySelector('#contract-controls');
+	contractControls.className = contractControls.className.replace('flex-shown', 'flex-hidden');
+	document.querySelectorAll('.no-contract').forEach(function(item, index) {
+		item.className = item.className.replace("contract", "no-contract")
 	});
 }
 
