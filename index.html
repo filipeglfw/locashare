@@ -120,6 +120,7 @@ function openContract() {
 	//var mapContainer = document.querySelector('#map-container');
 	//mapContainer.className = mapContainer.className.replace('flex-shown', 'flex-hidden');
 	El('#map-container').replaceClass('flex-shown', 'flex-hidden');
+	El('#map').replaceClass('map-div-shown', 'map-div-hidden');
 }
 
 function closeContract() {
@@ -128,6 +129,8 @@ function closeContract() {
 	document.querySelectorAll('.no-contract').forEach(function(item, index) {
 		item.className = item.className.replace("contract", "no-contract")
 	});
+	
+	El('#map-container').replaceClass('flex-hidden', 'flex-shown');
 }
 
 function hideLoader() {
